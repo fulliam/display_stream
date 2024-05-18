@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor Stream</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Monitor Stream</h1>
+    <!-- Вывод списка мониторов -->
+    <div id="monitorList">
+        {% for monitor in monitors %}
+            <button onclick="changeMonitor(`{{ loop.index }}`)">Monitor {{ loop.index }}</button>
+        {% endfor %}
+    </div>
+    
+    <img src="{{ url_for('video_feed') }}" alt="video feed">
+    
+    <script>
+        function changeMonitor(monitorIndex) {
+            // AJAX запрос для смены монитора
+            $.ajax({
+                url: '/change_monitor',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ 'monitor_index': monitorIndex }),
+                dataType: 'json',
+                success: function(response) {
+                    if(response.success) {
+                        console.log("Monitor changed successfully");
+                    } else {
+                        console.log("Failed to change monitor");
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+</html>

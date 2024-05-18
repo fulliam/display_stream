@@ -1,0 +1,6 @@
+Flask==2.1.1
+numpy==1.21.2
+opencv-python==4.5.3.56
+Pillow==8.4.0
+mss==6.1.0
+# may be not actual versions
